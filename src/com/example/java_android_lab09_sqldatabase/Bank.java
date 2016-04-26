@@ -12,7 +12,7 @@ public class Bank extends SQLiteOpenHelper{
 	private String name;
 	private ArrayList<IModelListener> listeners;
 	private final String tablename="AccountTable";
-	private final String accountId = "id";
+	private final String accountId = "_id";
 	private final String accountName="name";
 	private final String accountBalance="balance";
 	private final String accountType="type";
@@ -22,7 +22,6 @@ public class Bank extends SQLiteOpenHelper{
 		// When a bank is created, it has an empty arraylist of listeners.
 		this.listeners = new ArrayList<IModelListener>();
 	}
-	
 	
 	// The addListener method takes a listener as argument and adds the
 	// listener to the arraylist of listeners for the bank.
@@ -128,7 +127,7 @@ public class Bank extends SQLiteOpenHelper{
 		}
 	 throw new UnknownCustomerException("Customer " + name + " unknown");
 	 }
-	 public static void TestBank() {
+	 public static void TestBank() throws NotEnoughMoneyException {
 		 Bank b = new Bank("UIC Bank", null);
 		 System.out.println(b.totalMoney() == 0);
 		 b.addAccount(new CreditAccount("Philippe", 1000));
@@ -174,12 +173,12 @@ public class Bank extends SQLiteOpenHelper{
 		 }
 	 }
 	@Override
-	public void onCreate(SQLiteDatabase arg0) {
-		// TODO Auto-generated method stub
-		
+	public void onCreate(SQLiteDatabase db){
+		db.execSQL("CREATE TABLE " + this.tablename + "(" + this.accountId + " INTEGER PRIMARY KEY, " 
+				+ accountName + " VARCHAR(255) NOT NULL, " + this.accountBalance + " INTEGER, " + this.accountType + "VARCHAR(255))");
 	}
 	@Override
-	public void onUpgrade(SQLiteDatabase arg0, int arg1, int arg2) {
+	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		// TODO Auto-generated method stub
 		
 	}

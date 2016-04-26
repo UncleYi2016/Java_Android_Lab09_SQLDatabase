@@ -30,7 +30,13 @@ public class ViewGetMoney extends Button implements IModelListener {
 				 Activity a = (Activity)v.getContext();
 				 EditText et = (EditText)a.findViewById(R.id.editText1);
 				 String name = et.getText().toString();
-				 String result = controller.getMoney(name);
+				 String result = null;
+				try {
+					result = controller.getMoney(name);
+				} catch (NotEnoughMoneyException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				 Toast.makeText(v.getContext(), result, Toast.LENGTH_SHORT).show();
 			 }
 	 	 });

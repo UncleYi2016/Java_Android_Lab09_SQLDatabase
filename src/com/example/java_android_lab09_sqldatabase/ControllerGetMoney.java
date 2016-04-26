@@ -6,7 +6,7 @@ public class ControllerGetMoney {
 		 this.model = m;
 	 }
 	 // The getMoney method takes the name of a bank customer as argument.
-	 public String getMoney(String name) {
+	 public String getMoney(String name) throws NotEnoughMoneyException {
 		 String result;
 	 try {
 		 // The getMoney method of the controller calls the getMoney method
